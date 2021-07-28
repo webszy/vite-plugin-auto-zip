@@ -1,0 +1,26 @@
+{
+  "name": "vite-plugin-auto-zip",
+  "version": "1.0.0",
+  "description": "provide a vite plugin then zip your file after compile done",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webszy/vite-plugin-auto-zip.git"
+  },
+  "keywords": [
+    "vite",
+    "plugin"
+  ],
+  "author": "webszy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webszy/vite-plugin-auto-zip/issues"
+  },
+  "homepage": "https://github.com/webszy/vite-plugin-auto-zip#readme",
+  "dependencies": {
+    "jszip": "^3.5.0"
+  }
+}
