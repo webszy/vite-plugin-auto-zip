@@ -1,8 +1,8 @@
 {
   "name": "vite-plugin-auto-zip",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "provide a vite plugin then zip your file after compile done",
-  "main": "index.js",
+  "main": "plugin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
