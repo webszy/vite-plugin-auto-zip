@@ -1,4 +1,4 @@
-export default function(){
+const plugin = function(){
     const makeZip = function (output, fileName = 'dist.zip') {
         const path = require('path')
         const fs = require('fs')
@@ -45,7 +45,6 @@ export default function(){
         removeExistedZip()
         zipDir(distPath)
     }
-
     return {
         name: 'vite-plugin-auto-zip',
         apply: 'build',
@@ -55,5 +54,5 @@ export default function(){
             makeZip(path.resolve(__dirname,'./dist'),name)
         }
     }
-
 }
+module.exports = plugin
