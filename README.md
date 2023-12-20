@@ -1,4 +1,7 @@
 # vite-plugin-auto-zip
+
+## i will continue working on this 
+
 my first vite plugin:vite-plugin-auto-zip,you will auto zip when vite build done
 
 > basic use on vite.config.js
