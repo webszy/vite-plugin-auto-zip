@@ -10,7 +10,7 @@
     //    "outDir": "dist",
     "declaration": true,
     "declarationDir": "./types",
-    "composite": true,
+    //    "composite": true,
     "rootDir": "src"
   },
   "include": [
