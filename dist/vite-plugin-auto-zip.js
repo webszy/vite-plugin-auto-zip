@@ -53,7 +53,6 @@ const defaultOption = {
     outName: 'dist.zip',
     outPath: ''
 };
-
 function AutoZip(options = defaultOption) {
     const zipConfig = Object.assign({}, options);
     if (!zipConfig.outName) {
@@ -78,13 +77,13 @@ function AutoZip(options = defaultOption) {
             console.log('zipConfig', zipConfig);
         },
         closeBundle() {
+            console.log(this);
             process.nextTick(() => {
                 makeZip(zipConfig);
             });
         }
     };
 }
-
 const zip = makeZip;
 
 export {AutoZip as default, zip};

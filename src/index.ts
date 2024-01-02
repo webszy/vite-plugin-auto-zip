@@ -1,4 +1,4 @@
-import {ResolvedConfig} from 'vite'
+import {ResolvedConfig, Plugin} from 'vite'
 import {resolve as pathResolve} from 'node:path';
 import {makeZip} from "./zipUtils";
 
@@ -14,7 +14,7 @@ const defaultOption = {
     outName: 'dist.zip',
     outPath: ''
 }
-export default function AutoZip(options: IPluginOptions = defaultOption) {
+export default function AutoZip(options: IPluginOptions = defaultOption): Plugin {
     const zipConfig: IPluginOptions = {
         ...options
     }
@@ -40,6 +40,7 @@ export default function AutoZip(options: IPluginOptions = defaultOption) {
             console.log('zipConfig', zipConfig)
         },
         closeBundle() {
+            console.log(this)
             process.nextTick(() => {
                 makeZip(zipConfig)
             })
