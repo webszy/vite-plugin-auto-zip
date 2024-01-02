@@ -28,8 +28,10 @@ export default function AutoZip(folderPath, outPath = './dist', outName = 'dist.
         },
         closeBundle() {
             // console.log(this)
+            console.time('✓ zip in');
             process.nextTick(() => {
                 makeZip(options);
+                console.timeEnd('✓ zip in');
             });
         }
     };

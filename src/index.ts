@@ -35,8 +35,10 @@ export default function AutoZip(
         },
         closeBundle() {
             // console.log(this)
+            console.time('✓ zip in')
             process.nextTick(() => {
                 makeZip(options)
+                console.timeEnd('✓ zip in')
             })
         }
     }

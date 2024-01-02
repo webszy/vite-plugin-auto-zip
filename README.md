@@ -5,6 +5,7 @@ production
 
 ### basic use on vite.config.js
 
+Just in case, make sure AutoZip is the last item in the plugins
 ```javascript
 import AutoZip from 'vite-plugin-auto-zip'
 {
