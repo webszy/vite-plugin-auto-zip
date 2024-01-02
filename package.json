@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-auto-zip",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "provide a vite plugin then zip your file after compile done",
   "main": "dist/vite-plugin-auto-zip.umd.js",
   "module": "dist/vite-plugin-auto-zip.mjs",
@@ -13,6 +13,7 @@
   "scripts": {
     "build": "rimraf -rf ./dist && rollup --config && yarn run build:types",
     "build:types": "rimraf -rf ./types && mkdir ./types && tsc -p ./tsconfig.json",
+    "publish:npm": "yarn run build && npm publish",
     "test": "node test.js"
   },
   "repository": {
