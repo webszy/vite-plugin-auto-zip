@@ -1,10 +1,14 @@
 {
   "name": "vite-plugin-auto-zip",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "provide a vite plugin then zip your file after compile done",
-  "main": "plugin.js",
+  "main": "dist/vite-plugin-auto-zip.umd.js",
+  "module": "dist/vite-plugin-auto-zip.mjs",
+  "types": "dist/vite-plugin-auto-zip.d.ts",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf -rf ./dist && rollup --config",
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -12,7 +16,8 @@
   },
   "keywords": [
     "vite",
-    "plugin"
+    "plugin",
+    "zip files"
   ],
   "author": "webszy",
   "license": "MIT",
@@ -20,7 +25,17 @@
     "url": "https://github.com/webszy/vite-plugin-auto-zip/issues"
   },
   "homepage": "https://github.com/webszy/vite-plugin-auto-zip#readme",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/node": "^20.10.6",
+    "jszip": "^3.5.0",
+    "rollup": "^4.9.2",
+    "rollup-plugin-dts": "^6.1.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10"
+  },
   "dependencies": {
-    "jszip": "^3.5.0"
+    "rimraf": "^5.0.5"
   }
 }
