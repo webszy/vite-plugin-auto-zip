@@ -1,8 +1,12 @@
-import {IPluginOptions} from "./index";
 import JSZip from 'jszip';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
+interface IPluginOptions {
+    folderPath: string,//需要压缩的文件夹路径,相对于项目根目录
+    outName: string,//压缩后的文件名
+    outPath: string //压缩后的文件路径
+}
 export function makeZip(config: IPluginOptions) {
     const {
         outPath: distPath,

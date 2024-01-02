@@ -6,33 +6,30 @@ const defaultOption = {
     outName: 'dist.zip',
     outPath: ''
 };
-export default function AutoZip(options = defaultOption) {
-    const zipConfig = Object.assign({}, options);
-    if (!zipConfig.outName) {
-        zipConfig.outName = 'dist.zip';
-    }
+export default function AutoZip(folderPath, outPath = './dist', outName = 'dist.zip') {
+    const options = { folderPath, outPath, outName };
     return {
         name: 'vite-plugin-auto-zip',
         apply: 'build',
         enforce: 'post',
         configResolved(config) {
-            // 获取vite配置，根据vite配置的root，outDir来设置压缩目录
             if (config.mode !== 'production' && config.command !== 'build') {
                 return;
             }
+            // 获取vite配置，根据vite配置的root，outDir来设置压缩目录
             const outDir = pathResolve(config.root, config.build.outDir);
-            if (outDir !== zipConfig.folderPath) {
-                zipConfig.folderPath = outDir;
+            if (outDir !== folderPath) {
+                options.folderPath = outDir;
             }
-            if (!zipConfig.outPath) {
-                zipConfig.outPath = pathResolve(config.root, config.build.outDir, zipConfig.outName);
+            if (!outPath) {
+                options.outPath = pathResolve(config.root, config.build.outDir, options.outName);
             }
-            console.log('zipConfig', zipConfig);
+            // console.log('zipConfig', options)
         },
         closeBundle() {
-            console.log(this);
+            // console.log(this)
             process.nextTick(() => {
-                makeZip(zipConfig);
+                makeZip(options);
             });
         }
     };
