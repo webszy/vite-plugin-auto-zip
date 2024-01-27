@@ -1,9 +1,2 @@
-interface IPluginOptions {
-    folderPath: string;
-    outName: string;
-    outPath: string;
-}
-
+import {IPluginOptions} from "./index";
 export declare function makeZip(config: IPluginOptions): void;
-
-export {};

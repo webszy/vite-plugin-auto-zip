@@ -2,7 +2,11 @@ import {ResolvedConfig, Plugin} from 'vite'
 import {resolve as pathResolve} from 'node:path';
 import {makeZip} from "./zipUtils";
 
-
+export interface IPluginOptions {
+    folderPath: string,//需要压缩的文件夹路径,相对于项目根目录
+    outName: string,//压缩后的文件名
+    outPath: string //压缩后的文件路径
+}
 // 默认配置
 const defaultOption = {
     folderPath: 'dist',
@@ -10,11 +14,16 @@ const defaultOption = {
     outPath: ''
 }
 export default function AutoZip(
-    folderPath: string,
-    outPath: string = './dist',
-    outName: string = 'dist.zip'
+    outName?: string,
+    folderPath?: string,
+    outPath?: string,
 ): Plugin {
-    const options = {folderPath, outPath, outName}
+    const options = {folderPath, outPath, outName} as Partial<IPluginOptions>
+
+    options.outName = outName ?? defaultOption.outName
+    options.folderPath = folderPath ?? defaultOption.folderPath
+    options.outPath = outPath ?? defaultOption.outPath
+    // console.log('plugin init',options)
     return {
         name: 'vite-plugin-auto-zip',
         apply: 'build',
@@ -29,7 +38,7 @@ export default function AutoZip(
                 options.folderPath = outDir
             }
             if (!outPath) {
-                options.outPath = pathResolve(config.root, config.build.outDir, options.outName)
+                options.outPath = pathResolve(config.root, config.build.outDir, <string>options.outName)
             }
             // console.log('zipConfig', options)
         },
@@ -37,10 +46,10 @@ export default function AutoZip(
             // console.log(this)
             console.time('✓ zip in')
             process.nextTick(() => {
-                makeZip(options)
+                makeZip(<IPluginOptions>options)
                 console.timeEnd('✓ zip in')
             })
-        }
+        },
     }
 }
 export const zip = makeZip

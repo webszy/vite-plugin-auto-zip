@@ -4,13 +4,16 @@ import JSZip from 'jszip';
 import * as fs from 'node:fs';
 
 function makeZip(config) {
-    const {outPath: distPath, outName: fileName} = config;
+    const {folderPath: distPath, outName: fileName} = config;
+    // console.log('开始压缩',distPath)
+    // TODO: 重写压缩文件的方法
     const zip = new JSZip();
     const readDir = function (zipInstance, dirPath) {
         // 读取dist下的根文件目录
         fs.readdirSync(dirPath)
             .forEach(fileName => {
                 const fillPath = path.join(dirPath, "./", fileName);
+                // console.log(fillPath)
                 const file = fs.statSync(fillPath);
                 // 如果是文件夹的话需要递归遍历下面的子文件
                 if (file.isDirectory()) {
@@ -18,7 +21,11 @@ function makeZip(config) {
                     readDir(dirZip, fillPath);
                 } else {
                     // 读取每个文件为buffer存到zip中
-                    zip.file(fileName, fs.readFileSync(fillPath));
+                    // let realPath = fillPath.replace(distPath, '')
+                    // if(realPath.startsWith('/')) {
+                    //     realPath = realPath.slice(1)
+                    // }
+                    zipInstance.file(fileName, fs.readFileSync(fillPath));
                 }
             });
     };
@@ -47,8 +54,19 @@ function makeZip(config) {
     zipDir();
 }
 
-function AutoZip(folderPath, outPath = './dist', outName = 'dist.zip') {
+// 默认配置
+const defaultOption = {
+    folderPath: 'dist',
+    outName: 'dist.zip',
+    outPath: ''
+};
+
+function AutoZip(outName, folderPath, outPath) {
     const options = {folderPath, outPath, outName};
+    options.outName = outName !== null && outName !== void 0 ? outName : defaultOption.outName;
+    options.folderPath = folderPath !== null && folderPath !== void 0 ? folderPath : defaultOption.folderPath;
+    options.outPath = outPath !== null && outPath !== void 0 ? outPath : defaultOption.outPath;
+    // console.log('plugin init',options)
     return {
         name: 'vite-plugin-auto-zip',
         apply: 'build',
@@ -74,7 +92,7 @@ function AutoZip(folderPath, outPath = './dist', outName = 'dist.zip') {
                 makeZip(options);
                 console.timeEnd('✓ zip in');
             });
-        }
+        },
     };
 }
 const zip = makeZip;

@@ -17,17 +17,26 @@ import AutoZip from 'vite-plugin-auto-zip'
 
 ### params of AutoZip
 
-1. folderPath
+1. outName <span style="color:red">see breaking changes when 1.2.0</span>
+   + your zip file name
+   + default value is 'dist.zip'
+
+2. folderPath
     + the target folder you want to zip
     + default value is './dist'
 
-2. outPath
+3. outPath
     + the output folder you want to put the zip file
     + default value is './dist'
-3. outName
-    + your zip file name
-    + default value is 'dist.zip'
+
 
 ```typescript
-function AutoZip(folderPath: string = './dist', outPath: string = './dist', outName: string = 'dist.zip')
+function AutoZip(outName: string = 'dist.zip', folderPath: string = './dist', outPath: string = './dist') {
+}
 ```
+
+# breaking changes
+
+## v1.2.0
+
++ outName will be first params

@@ -1,23 +1,23 @@
 import JSZip from 'jszip';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {IPluginOptions} from "./index";
 
-interface IPluginOptions {
-    folderPath: string,//需要压缩的文件夹路径,相对于项目根目录
-    outName: string,//压缩后的文件名
-    outPath: string //压缩后的文件路径
-}
+
 export function makeZip(config: IPluginOptions) {
     const {
-        outPath: distPath,
+        folderPath: distPath,
         outName: fileName
     } = config
+    // console.log('开始压缩',distPath)
+    // TODO: 重写压缩文件的方法
     const zip = new JSZip()
     const readDir = function (zipInstance: any, dirPath: string) {
         // 读取dist下的根文件目录
         fs.readdirSync(dirPath)
             .forEach(fileName => {
                 const fillPath = path.join(dirPath, "./", fileName)
+                // console.log(fillPath)
                 const file = fs.statSync(fillPath);
                 // 如果是文件夹的话需要递归遍历下面的子文件
                 if (file.isDirectory()) {
@@ -25,7 +25,7 @@ export function makeZip(config: IPluginOptions) {
                     readDir(dirZip, fillPath);
                 } else {
                     // 读取每个文件为buffer存到zip中
-                    zip.file(fileName, fs.readFileSync(fillPath))
+                    zipInstance.file(fileName, fs.readFileSync(fillPath))
                 }
             });
     }
